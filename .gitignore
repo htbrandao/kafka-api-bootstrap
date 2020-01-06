@@ -1,0 +1,24 @@
+# metals && java rhel
+.metals
+.classpath
+.bloop/
+.settings/
+
+# gradle
+.gradle/
+gradlew
+gradlew.bat
+gradle/
+
+# IDE's
+.idea/
+.vscode/
+
+# build
+out/
+
+# gitlab
+.gitlab-ci.yml
+
+# other
+bin/
