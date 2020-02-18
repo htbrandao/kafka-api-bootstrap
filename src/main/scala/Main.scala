@@ -7,6 +7,10 @@ object Main {
 
     def main(args: Array[String]): Unit = {
 
+        /**
+            Docstring example for future reference #badMemory
+        */
+
         val config = new LoadEnviroment()
         val behaviorList = config.getCompoundValue("bhvList").zipWithIndex
         val groupId = config.getSingleValue("groupId")
