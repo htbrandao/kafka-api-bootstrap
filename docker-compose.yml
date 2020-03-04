@@ -16,7 +16,7 @@ services:
       - bhvList=producer
       - groupId=gId_=group_kfkApiProd01
       - appId=app_kfkApiProd01
-      - bhv0_topic=user.brandao.t1
+      - bhv0_topic=topic_name.t1
       - bhv0_bootstrapServers=kafka-1:19092
       - bhv0_sleep=200
     image: kafka_client_bootstrap:1.0.0
@@ -36,14 +36,14 @@ services:
      - groupId=group_kfkApiCons01
      - appId=app_kfkApiCons01
      # Thread 0
-     - bhv0_topic=user.brandao.t2
-     - bhv0_bootstrapServers=data-science_kafka-1:9092;data-science_kafka-2:29092;data-science_kafka-3:39092
+     - bhv0_topic=topic_name.t2
+     - bhv0_bootstrapServers=kafka_broker-1:9092;kafka_broker-2:29092;kafka_broker-3:39092
      # Thread 1
-     - bhv1_topic=user.brandao.t2
-     - bhv1_bootstrapServers=data-science_kafka-1:9092;data-science_kafka-2:29092;data-science_kafka-3:39092
+     - bhv1_topic=topic_name.t2
+     - bhv1_bootstrapServers=kafka_broker-1:9092;kafka_broker-2:29092;kafka_broker-3:39092
      # Thread 2
-     - bhv2_topic=user.brandao.t2
-     - bhv2_bootstrapServers=data-science_kafka-1:9092;data-science_kafka-2:29092;data-science_kafka-3:39092
+     - bhv2_topic=topic_name.t2
+     - bhv2_bootstrapServers=kafka_broker-1:9092;kafka_broker-2:29092;kafka_broker-3:39092
    image: kafka_client_bootstrap:1.0.0
    networks:
      - data-science_net-backend
@@ -60,9 +60,9 @@ services:
      - bhvList=stream
      - groupId=gId_=group_kfkApiStream01
      - appId=app_kfkApiStream01
-     - bhv0_topic_IN=user.brandao.t1
-     - bhv0_topic_OUT=user.brandao.t2
-     - bhv0_bootstrapServers=data-science_kafka-1:9092;data-science_kafka-2:29092;data-science_kafka-3:39092
+     - bhv0_topic_IN=topic_name.t1
+     - bhv0_topic_OUT=topic_name.t2
+     - bhv0_bootstrapServers=kafka_broker-1:9092;kafka_broker-2:29092;kafka_broker-3:39092
    image: kafka_client_bootstrap:1.0.0
    networks:
      - data-science_net-backend
