@@ -6,13 +6,13 @@ services:
     container_name: zookeeper
     image: wurstmeister/zookeeper
     ports:
-      - "92181:2181"
+      - "2181:2181"
 
   kafka:
     container_name: kafka
     build: .
     ports:
-      - "99902:9092"
+      - "9902:9092"
     environment:
       KAFKA_CREATE_TOPICS: "topic1:1:1,topic2:1:1,topic3:1:1"
       KAFKA_ADVERTISED_HOST_NAME: 192.168.99.100
@@ -29,11 +29,11 @@ services:
       # Topic 1 -> 2
       - bhv0_topic_IN=topic1
       - bhv0_topic_OUT=topic2
-      - bhv0_bootstrapServers=kafka:99092,kafka:99092,kafka:99092
+      - bhv0_bootstrapServers=kafka:9902,kafka:9902,kafka:9902
       # Topic 2 -> 3
       - bhv1_topic_IN=topic2
       - bhv1_topic_OUT=topic3
-      - bhv1_bootstrapServers=kafka:99092,kafka:99092,kafka:99092
+      - bhv1_bootstrapServers=kafka:9902,kafka:9902,kafka:9902
     image: kafka_client_bootstrap:1.0.0
 
   apiProducer:
@@ -43,7 +43,7 @@ services:
       - groupId=gId_=apiProducer
       - appId=apiProducer
       - bhv0_topic=topic1
-      - bhv0_bootstrapServers=kafka:99092
+      - bhv0_bootstrapServers=kafka:9902
       - bhv0_sleep=200
     image: kafka_client_bootstrap:1.0.0
 
@@ -55,11 +55,11 @@ services:
      - appId=apiConsumer
      # Thread 0
      - bhv0_topic=topic1
-     - bhv0_bootstrapServers=kafka:99092,kafka:99092,kafka:99092
+     - bhv0_bootstrapServers=kafka:9902,kafka:9902,kafka:9902
      # Thread 1
      - bhv1_topic=topic2
-     - bhv1_bootstrapServers=kafka:99092,kafka:99092,kafka:99092
+     - bhv1_bootstrapServers=kafka:9902,kafka:9902,kafka:9902
      # Thread 2
      - bhv2_topic=topic3
-     - bhv2_bootstrapServers=kafka:99092,kafka:99092,kafka:99092
+     - bhv2_bootstrapServers=kafka:9902,kafka:9902,kafka:9902
    image: kafka_client_bootstrap:1.0.0
