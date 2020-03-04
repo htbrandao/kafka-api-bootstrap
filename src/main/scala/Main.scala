@@ -1,4 +1,4 @@
-package bootstrap_api_kafka
+package kafka_client_bootstrap
 
 import org.slf4j.LoggerFactory
 import java.time.LocalDateTime

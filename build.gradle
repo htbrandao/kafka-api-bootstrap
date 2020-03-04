@@ -1,17 +1,15 @@
-group = "bootstrap_api_kafka"
+group = "kafka_client_bootstrap"
 buildDir = "out/$group"
 
 apply plugin: 'scala'
 apply plugin: 'idea'
 
 idea {
-
     module {
         inheritOutputDirs = true
         downloadJavadoc = true
         downloadSources = true
     }
-
 }
 
 repositories {
@@ -22,49 +20,36 @@ repositories {
 dependencies {
     // Use Scala 2.12 in our library project
     compile 'org.scala-lang:scala-library:2.12.6'
-
     // https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients
     compile group: 'org.apache.kafka', name: 'kafka-clients', version: '2.0.0'
-    
     // https://mvnrepository.com/artifact/org.apache.kafka/kafka-streams
     compile group: 'org.apache.kafka', name: 'kafka-streams', version: '2.0.0'
-
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
     compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
-    
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
-
     // https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver
     compile group: 'org.mongodb', name: 'mongo-java-driver', version: '3.9.1'
-
 //    compile files ('libs/MY-LIB-NAME.jar')                // for a single lib
 //    fileTree(include: ['*.jar'], dir: 'libs')            // for multiple libs
-
 }
 
 task run(type: JavaExec, dependsOn: classes) {
-    main = "bootstrap_api_kafka.Main"
+    main = "kafka_client_bootstrap.Main"
     classpath = sourceSets.main.runtimeClasspath
-
 }
 
 task uberjar(type: Jar) {
-
     zip64 true
-
     exclude "META-INF/*.SF"
     exclude 'META-INF/*.DSA'
     exclude 'META-INF/*.RSA'
     exclude "LICENSE*"
-
     manifest {
-        attributes "Main-Class": "bootstrap_api_kafka.Main",
+        attributes "Main-Class": "kafka_client_bootstrap.Main",
                 "Built-Date": new Date().format('yyyy-MM-dd HH:mm:ss')
     }
-
     from {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     } with jar
-
 }
