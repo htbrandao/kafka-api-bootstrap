@@ -1,4 +1,3 @@
-version = 1.0.0
 group = "kafka_client_bootstrap"
 buildDir = "build/$group"
 

@@ -4,7 +4,6 @@ class LoadEnviroment {
 
     def getSingleValue(key: String) = {System.getenv(key)}
 
-
 }
 
 

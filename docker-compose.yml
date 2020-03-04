@@ -3,301 +3,68 @@ version: '3'
 services:
 
   ######################################################################
+  # KAFKA AND ZOOKEEPER________________________________________________#
+  ######################################################################
+
+  ######################################################################
   # PRODUCER___________________________________________________________#
   ######################################################################
 
   kfkApiProd01:
     container_name: kfkApiProd01
     environment:
-
       - bhvList=producer
-
       - groupId=gId_=group_kfkApiProd01
       - appId=app_kfkApiProd01
-
       - bhv0_topic=user.brandao.t1
       - bhv0_bootstrapServers=kafka-1:19092
       - bhv0_sleep=200
-
     image: kafka_client_bootstrap:1.0.0
     networks:
       - net-backend
     ports:
       - "3601:3601"
 
-  #####################################################################
-  # SINK______________________________________________________________#
-  #####################################################################
+  #######################################################################
+  ## CONSUMER___________________________________________________________#
+  #######################################################################
 
-  kfkApiSink01:
-    container_name: kfkApiSink01
-    environment:
+  kfkApiCons01:
+   container_name: kfkApiCons01
+   environment:
+     - bhvList=consumer;consumer;consumer
+     - groupId=group_kfkApiCons01
+     - appId=app_kfkApiCons01
+     # Thread 0
+     - bhv0_topic=user.brandao.t2
+     - bhv0_bootstrapServers=data-science_kafka-1:9092;data-science_kafka-2:29092;data-science_kafka-3:39092
+     # Thread 1
+     - bhv1_topic=user.brandao.t2
+     - bhv1_bootstrapServers=data-science_kafka-1:9092;data-science_kafka-2:29092;data-science_kafka-3:39092
+     # Thread 2
+     - bhv2_topic=user.brandao.t2
+     - bhv2_bootstrapServers=data-science_kafka-1:9092;data-science_kafka-2:29092;data-science_kafka-3:39092
+   image: kafka_client_bootstrap:1.0.0
+   networks:
+     - data-science_net-backend
+   ports:
+     - "3621:3621"
 
-      - bhvList=sink
-      - groupId=group_kfkApiSink01
-      - appId=app_kfkApiSink01
+ #####################################################################
+ # STREAM____________________________________________________________#
+ #####################################################################
 
-      - bhv0_topic=user.brandao.t2
-      - bhv0_bootstrapServers=kafka-1:19094
-
-      - bhv0_mgServers=mongo:27017
-      - bhv0_mgUserDb=datascience
-      - bhv0_mgTable=kafka_sink
-
-      - bhv0_mgUser=f4119597
-      - bhv0_mgUserPassword=123
-
-    image: kafka_client_bootstrap:1.0.0
-    networks:
-      - net-backend
-    ports:
-      - "3631:3631"
-
-
-  zookeeper-1:
-    image: confluentinc/cp-zookeeper:latest
-    volumes:
-      - zookeeper-data-1:/var/lib/zookeeper/data
-      - zookeeper-txn-logs-1:/var/lib/zookeeper/log
-    environment:
-      ZOOKEEPER_SERVER_ID: 1
-      ZOOKEEPER_CLIENT_PORT: 22181
-      ZOOKEEPER_TICK_TIME: 2000
-      ZOOKEEPER_INIT_LIMIT: 5
-      ZOOKEEPER_SYNC_LIMIT: 2
-      ZOOKEEPER_SERVERS: 0.0.0.0:22888:23888;zookeeper-2:32888:33888;zookeeper-3:42888:43888
-      KAFKA_JMX_PORT: 39999
-      KAFKA_JMX_HOSTNAME: ${HOST_IP:-localhost}
-    ports:
-      - "22181:2181"
-      - "23888:3888"
-      - "22888:2888"
-    networks:
-      - net-backend
-
-
-  zookeeper-2:
-    image: confluentinc/cp-zookeeper:latest
-    volumes:
-      - zookeeper-data-2:/var/lib/zookeeper/data
-      - zookeeper-txn-logs-2:/var/lib/zookeeper/log
-    environment:
-      ZOOKEEPER_SERVER_ID: 2
-      ZOOKEEPER_CLIENT_PORT: 32181
-      ZOOKEEPER_TICK_TIME: 2000
-      ZOOKEEPER_INIT_LIMIT: 5
-      ZOOKEEPER_SYNC_LIMIT: 2
-      ZOOKEEPER_SERVERS: zookeeper-1:22888:23888;0.0.0.0:32888:33888;zookeeper-3:42888:43888
-      KAFKA_JMX_PORT: 39998
-      KAFKA_JMX_HOSTNAME: ${HOST_IP:-localhost}
-    ports:
-      - "32181:2181"
-      - "33888:3888"
-      - "32888:2888"
-    networks:
-      - net-backend
-
-  zookeeper-3:
-    image: confluentinc/cp-zookeeper:latest
-    volumes:
-      - zookeeper-data-3:/var/lib/zookeeper/data
-      - zookeeper-txn-logs-3:/var/lib/zookeeper/log
-    environment:
-      ZOOKEEPER_SERVER_ID: 3
-      ZOOKEEPER_CLIENT_PORT: 42181
-      ZOOKEEPER_TICK_TIME: 2000
-      ZOOKEEPER_INIT_LIMIT: 5
-      ZOOKEEPER_SYNC_LIMIT: 2
-      ZOOKEEPER_SERVERS: zookeeper-1:22888:23888;zookeeper-2:32888:33888;0.0.0.0:42888:43888
-      KAFKA_JMX_PORT: 39997
-      KAFKA_JMX_HOSTNAME: ${HOST_IP:-localhost}
-    ports:
-      - "42181:2181"
-      - "43888:3888"
-      - "42888:2888"
-    networks:
-      - net-backend
-
-  kafka-1:
-    image: confluentinc/cp-kafka:latest
-    volumes:
-      - kafka-1:/var/lib/kafka/data
-    depends_on:
-      - zookeeper-1
-      - zookeeper-2
-      - zookeeper-3
-    environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:22181,zookeeper-2:32181,zookeeper-3:42181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-1:19094,OUTSIDE://${HOST_IP:-localhost}:19092
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,OUTSIDE:PLAINTEXT
-      KAFKA_JMX_PORT: 49997
-      KAFKA_JMX_HOSTNAME: ${HOST_IP:-localhost}
-    ports:
-      - "19092:19092"
-      - "19094:19094"
-      - "49997:49997"
-    networks:
-      - net-backend
-    deploy:
-      resources:
-        limits:
-          cpus: '0.8'
-          memory: 400M
-        reservations:
-          cpus: '0.25'
-          memory: 100M
-
-  kafka-2:
-    image: confluentinc/cp-kafka:latest
-    volumes:
-      - kafka-2:/var/lib/kafka/data
-    depends_on:
-      - zookeeper-1
-      - zookeeper-2
-      - zookeeper-3
-    environment:
-      KAFKA_BROKER_ID: 2
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:22181,zookeeper-2:32181,zookeeper-3:42181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-2:29094,OUTSIDE://${HOST_IP:-localhost}:29092
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,OUTSIDE:PLAINTEXT
-      # KAFKA_JMX_PORT: 49998
-      # KAFKA_JMX_HOSTNAME: ${HOST_IP:-localhost}
-    ports:
-      - "29092:29092"
-      - "29094:29094"
-    networks:
-        - net-backend
-    deploy:
-      resources:
-        limits:
-          cpus: '0.8'
-          memory: 400M
-        reservations:
-          cpus: '0.25'
-          memory: 100M
-
-
-  kafka-3:
-     image: confluentinc/cp-kafka:latest
-     volumes:
-       - kafka-3:/var/lib/kafka/data
-     depends_on:
-       - zookeeper-1
-       - zookeeper-2
-       - zookeeper-3
-     environment:
-       KAFKA_BROKER_ID: 3
-       KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:22181,zookeeper-2:32181,zookeeper-3:42181
-       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-3:39092,OUTSIDE://${HOST_IP:-localhost}:39094
-       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,OUTSIDE:PLAINTEXT
-        # KAFKA_JMX_PORT: 49999
-        # KAFKA_JMX_HOSTNAME: ${HOST_IP:-localhost}
-     ports:
-        - "39092:39092" # external access
-        - "39094:39094" # internal access
-     networks:
-       - net-backend
-     deploy:
-       resources:
-         limits:
-           cpus: '0.8'
-           memory: 400M
-         reservations:
-            cpus: '0.25'
-            memory: 100M
-  mongo:
-      image: mongo
-      volumes:
-        - mongodb-1:/data/db
-      command: --storageEngine wiredTiger
-      ports:
-        - "27017"
-      networks:
-        - net-backend
-
-
-networks:
-    net-backend:
-      driver: bridge
-
-volumes:
-  kafka-1:
-
-  kafka-2:
-
-  kafka-3:
-
-  zookeeper-data-1:
-
-  zookeeper-data-2:
-
-  zookeeper-data-3:
-
-  zookeeper-txn-logs-1:
-
-  zookeeper-txn-logs-2:
-
-  zookeeper-txn-logs-3:
-
-  mongodb-1:
-
-
-
-
-
-
-#  #####################################################################
-#  # STREAM____________________________________________________________#
-#  #####################################################################
-#
-#  kfkApiStream01:
-#    container_name: kfkApiStream01
-#    environment:
-#
-#      - bhvList=stream
-#
-#      - groupId=gId_=group_kfkApiStream01
-#      - appId=app_kfkApiStream01
-#
-#      - bhv0_topic_IN=user.brandao.t1
-#      - bhv0_topic_OUT=user.brandao.t2
-#      - bhv0_bootstrapServers=data-science_kafka-1:9092;data-science_kafka-2:29092;data-science_kafka-3:39092
-#
-#    image: kafka_client_bootstrap:1.0.0
-#    networks:
-#      - data-science_net-backend
-#    ports:
-#      - "3611:3611"
-#
-#  ######################################################################
-#  # CONSUMER___________________________________________________________#
-#  ######################################################################
-#
-#  kfkApiCons01:
-#    container_name: kfkApiCons01
-#    environment:
-#
-#      - bhvList=consumer;consumer;consumer
-#
-#      - groupId=group_kfkApiCons01
-#      - appId=app_kfkApiCons01
-#      -
-#      # Thread 0
-#      - bhv0_topic=user.brandao.t2
-#      - bhv0_bootstrapServers=data-science_kafka-1:9092;data-science_kafka-2:29092;data-science_kafka-3:39092
-#      # Thread 1
-#      - bhv1_topic=user.brandao.t2
-#      - bhv1_bootstrapServers=data-science_kafka-1:9092;data-science_kafka-2:29092;data-science_kafka-3:39092
-#      # Thread 2
-#      - bhv2_topic=user.brandao.t2
-#      - bhv2_bootstrapServers=data-science_kafka-1:9092;data-science_kafka-2:29092;data-science_kafka-3:39092
-#
-#    image: kafka_client_bootstrap:1.0.0
-#    networks:
-#      - data-science_net-backend
-#    ports:
-#      - "3621:3621"
+  kfkApiStream01:
+   container_name: kfkApiStream01
+   environment:
+     - bhvList=stream
+     - groupId=gId_=group_kfkApiStream01
+     - appId=app_kfkApiStream01
+     - bhv0_topic_IN=user.brandao.t1
+     - bhv0_topic_OUT=user.brandao.t2
+     - bhv0_bootstrapServers=data-science_kafka-1:9092;data-science_kafka-2:29092;data-science_kafka-3:39092
+   image: kafka_client_bootstrap:1.0.0
+   networks:
+     - data-science_net-backend
+   ports:
+     - "3611:3611"

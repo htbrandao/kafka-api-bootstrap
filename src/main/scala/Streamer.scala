@@ -13,7 +13,7 @@ class Streamer(myProp: Properties, mytopicOrg: String, mytopicDest: String) exte
     val topology = builder.build()
 
     // TODO: Countdown Latch?
-    //  Implement parser
+    // Implement parser
     log.info(s"STREAMER TOPOLOGY: ${topology.describe()}")
 
     val trans = new KafkaStreams(topology, myProp)
