@@ -1,6 +1,6 @@
-# ====================== #
-# Build inside container #
-# ====================== #
+# =====================================================================
+# Build inside container
+
 # FROM gradle:4.10.2-jre8-alpine
 #
 # COPY build.gradle /home/gradle/kafka_client_bootstrap/
@@ -17,16 +17,15 @@
 #
 # ENTRYPOINT java -jar build/kafka_client_bootstrap/libs/kafka_client_bootstrap.jar
 
-# ============= #
-# Build locally #
-# ============= #
+# =====================================================================
+# Build locally
+
 FROM gradle:4.10.2-jre8-alpine
 
-USER gradle
-WORKDIR /home/gradle/kafka_client_bootstrap
+USER root
 
-COPY build/kafka_client_bootstrap/libs/kafka_client_bootstrap.jar .
-RUN chown -R gradle:gradle /home/gradle/kafka_client_bootstrap
-RUN chmod 777 kafka_client_bootstrap.jar
+RUN mkdir /kafka_client_bootstrap
 
-ENTRYPOINT java -jar build/kafka_client_bootstrap/libs/kafka_client_bootstrap.jar
+COPY build/kafka_client_bootstrap/libs/kafka_client_bootstrap.jar /kafka_client_bootstrap/
+
+ENTRYPOINT java -jar /kafka_client_bootstrap/kafka_client_bootstrap.jar

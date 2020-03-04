@@ -12,7 +12,6 @@ class Streamer(myProp: Properties, mytopicOrg: String, mytopicDest: String) exte
 
     val topology = builder.build()
 
-
     // Implement parser
     log.info(s"STREAMER TOPOLOGY: ${topology.describe()}")
 

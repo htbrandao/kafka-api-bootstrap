@@ -12,9 +12,9 @@ object Main {
 
         val log = LoggerFactory.getLogger(this.getClass)
         log.info(s"STARTING APPLICATION:\n"
-                + s"Behaviors found: ${behaviorList.length}\n "
-                + s"Group Id: ${config.getSingleValue("groupId")}\n "
-                + s"Application Id:${config.getSingleValue("appId")}\n "
+                + s"Behaviors found: ${behaviorList.length}\n"
+                + s"Group Id: ${config.getSingleValue("groupId")}\n"
+                + s"Application Id:${config.getSingleValue("appId")}\n"
                 + s"Current Time: ${LocalDateTime.now()}\n")
 
         val app = new BehaviorLoader(config, behaviorList, groupId, appId)

@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory
 class Consumer(myProp: Properties, myTopic: String, pollTimeout: Int) extends Thread {
 
     val log = LoggerFactory.getLogger(this.getClass)
-    log.info(s"ACK @ ${this.getClass} ")
+    log.info(s"ACK @ ${this.getClass}")
 
     val consumer = new KafkaConsumer[String, String](myProp)
     consumer.subscribe(util.Collections.singletonList(myTopic))
@@ -23,6 +23,7 @@ class Consumer(myProp: Properties, myTopic: String, pollTimeout: Int) extends Th
                                 "key" -> msg.key(),
                                 "value" -> msg.value(),
                                 "timestamp" -> msg.timestamp())
+            print(msgToMap)
             msgToMap
             }
         msgs
