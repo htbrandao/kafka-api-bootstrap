@@ -1,5 +1,3 @@
-package kafka_client_bootstrap
-
 import java.util
 import java.util.Properties
 import scala.collection.JavaConverters._

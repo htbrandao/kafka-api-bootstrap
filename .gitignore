@@ -5,20 +5,20 @@
 .settings/
 
 # gradle
-.gradle/
+.gradle
 gradlew
 gradlew.bat
 gradle/
 
 # IDE's
-.idea/
-.vscode/
-
-# build
-out/
+.idea
+.vscode
 
 # gitlab
 .gitlab-ci.yml
 
 # other
-bin/
+bin
+
+# build
+build

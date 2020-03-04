@@ -1,5 +1,6 @@
+version = 1.0.0
 group = "kafka_client_bootstrap"
-buildDir = "out/$group"
+buildDir = "build/$group"
 
 apply plugin: 'scala'
 apply plugin: 'idea'
@@ -30,26 +31,34 @@ dependencies {
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
     // https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver
     compile group: 'org.mongodb', name: 'mongo-java-driver', version: '3.9.1'
-//    compile files ('libs/MY-LIB-NAME.jar')                // for a single lib
-//    fileTree(include: ['*.jar'], dir: 'libs')            // for multiple libs
+
+    // compile files ('libs/MY-LIB-NAME.jar')           // for a single lib
+    // fileTree(include: ['*.jar'], dir: 'libs')        // for multiple libs
 }
 
 task run(type: JavaExec, dependsOn: classes) {
-    main = "kafka_client_bootstrap.Main"
+
+    main = "Main"
     classpath = sourceSets.main.runtimeClasspath
+
 }
 
 task uberjar(type: Jar) {
+
     zip64 true
+    
     exclude "META-INF/*.SF"
     exclude 'META-INF/*.DSA'
     exclude 'META-INF/*.RSA'
     exclude "LICENSE*"
+    
     manifest {
-        attributes "Main-Class": "kafka_client_bootstrap.Main",
+        attributes "Main-Class": "Main",
                 "Built-Date": new Date().format('yyyy-MM-dd HH:mm:ss')
     }
+    
     from {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     } with jar
+    
 }

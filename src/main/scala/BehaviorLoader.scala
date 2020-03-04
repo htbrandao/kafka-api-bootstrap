@@ -1,5 +1,3 @@
-package kafka_client_bootstrap
-
 import org.slf4j.LoggerFactory
 
 class BehaviorLoader(config: LoadEnviroment, behaviorList: Array[(String, Int)],
@@ -52,27 +50,6 @@ class BehaviorLoader(config: LoadEnviroment, behaviorList: Array[(String, Int)],
 
                     val log = LoggerFactory.getLogger(action.getClass)
                     log.info(s"STARTING $index, $bhv, $topic_IN, $topic_OUT, ${servers.toList}")
-
-                    action.start()
-                    s"$index, $bhv"
-
-                case "sink" =>
-                    val topic = config.getSingleValue(s"bhv${index}_topic")
-                    val servers = config.getCompoundValue(s"bhv${index}_bootstrapServers")
-                    val profile = new Profile().setDefault(appId, groupId, servers)
-
-                    val mg_user = config.getSingleValue(s"bhv${index}_mgUser")
-                    val mg_password = config.getSingleValue(s"bhv${index}_mgUserPassword")
-
-                    val mg_servers = config.getCompoundValue(s"bhv${index}_mgServers")
-                    val mg_database = config.getSingleValue(s"bhv${index}_mgUserDb")
-                    val mg_collection = config.getSingleValue(s"bhv${index}_mgTable")
-
-                    val action = new Database(mg_user, mg_password, mg_servers, mg_database, mg_collection,
-                                                profile, topic, 200)
-
-                    val log = LoggerFactory.getLogger(action.getClass)
-                    log.info(s"STARTING $index, $bhv, $topic, ${servers.toList}")
 
                     action.start()
                     s"$index, $bhv"

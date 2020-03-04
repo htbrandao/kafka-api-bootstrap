@@ -1,5 +1,3 @@
-package kafka_client_bootstrap
-
 import java.util.Properties
 
 class LoadConfig(filePath: String) {

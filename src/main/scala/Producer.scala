@@ -1,5 +1,3 @@
-package kafka_client_bootstrap
-
 import java.time.LocalDateTime
 import java.util.Properties
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}

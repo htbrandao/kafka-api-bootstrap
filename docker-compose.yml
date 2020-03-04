@@ -19,7 +19,7 @@ services:
       - bhv0_bootstrapServers=kafka-1:19092
       - bhv0_sleep=200
 
-    image: bootstrap_kafka_api:1.0
+    image: kafka_client_bootstrap:1.0.0
     networks:
       - net-backend
     ports:
@@ -47,7 +47,7 @@ services:
       - bhv0_mgUser=f4119597
       - bhv0_mgUserPassword=123
 
-    image: bootstrap_kafka_api:1.0
+    image: kafka_client_bootstrap:1.0.0
     networks:
       - net-backend
     ports:
@@ -267,7 +267,7 @@ volumes:
 #      - bhv0_topic_OUT=user.brandao.t2
 #      - bhv0_bootstrapServers=data-science_kafka-1:9092;data-science_kafka-2:29092;data-science_kafka-3:39092
 #
-#    image: bootstrap_kafka_api:1.0
+#    image: kafka_client_bootstrap:1.0.0
 #    networks:
 #      - data-science_net-backend
 #    ports:
@@ -296,7 +296,7 @@ volumes:
 #      - bhv2_topic=user.brandao.t2
 #      - bhv2_bootstrapServers=data-science_kafka-1:9092;data-science_kafka-2:29092;data-science_kafka-3:39092
 #
-#    image: bootstrap_kafka_api:1.0
+#    image: kafka_client_bootstrap:1.0.0
 #    networks:
 #      - data-science_net-backend
 #    ports:
