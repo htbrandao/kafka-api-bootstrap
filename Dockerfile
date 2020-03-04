@@ -1,5 +1,5 @@
 # =====================================================================
-# Build inside container
+# Build uberjar inside container
 
 # FROM gradle:4.10.2-jre8-alpine
 #
@@ -18,7 +18,7 @@
 # ENTRYPOINT java -jar build/kafka_client_bootstrap/libs/kafka_client_bootstrap.jar
 
 # =====================================================================
-# Build locally
+# Build uberjar locally
 
 FROM gradle:4.10.2-jre8-alpine
 

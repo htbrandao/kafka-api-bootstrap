@@ -6,8 +6,8 @@
 
 2 - $ docker build . -t $APP:$VERSION
 
-3 - Create docker services and set enviroment variables in **docker-compose.yml**
+3 - Create docker services and set environment variables in **docker-compose.yml**
 
-4 - _docker-compose up -d_
+4 - $ docker-compose up -d
 
 Hope you enjoy!
