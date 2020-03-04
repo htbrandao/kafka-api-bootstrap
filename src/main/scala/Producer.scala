@@ -12,17 +12,12 @@ class Producer(myProp: Properties, myTopic: String, sleepTime: Int) extends Thre
 
     def produce(recKey: String, recVal: String) = producer.send(new ProducerRecord(myTopic, recKey, recVal) )
 
-
-    // main
     override def run(): Unit = {
         while (true) {
-            produce("________I-DO-IT________", s"________${LocalDateTime.now()}________")
-            // TODO: print
-            println(s"### WRITING @ $myTopic, ts: ${LocalDateTime.now()}")
+            produce("__THIS_IS_KEY__", s"__VAL_IS__${LocalDateTime.now()}__")
             Thread.sleep(sleepTime)
         }
         producer.close()
     }
-
 
 }

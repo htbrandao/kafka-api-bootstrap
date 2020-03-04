@@ -5,11 +5,7 @@ object Main {
 
     def main(args: Array[String]): Unit = {
 
-        /**
-            Docstring example for future reference #badMemory
-        */
-
-        val config = new LoadEnviroment()
+        val config = new LoadConfigEnviroment()
         val behaviorList = config.getCompoundValue("bhvList").zipWithIndex
         val groupId = config.getSingleValue("groupId")
         val appId = config.getSingleValue("appId")
@@ -25,7 +21,6 @@ object Main {
         app.start()
 
     }
-
 
 }
 

@@ -1,6 +1,6 @@
 import java.util.Properties
 
-class LoadConfig(filePath: String) {
+class LoadConfigFile(filePath: String) {
 
     val properties = new Properties()
     val propFile = Thread.currentThread.getClass.getResourceAsStream(filePath)
@@ -9,6 +9,5 @@ class LoadConfig(filePath: String) {
     def getCompoundValue(key: String) = properties.getProperty(key).split(";")
 
     def getSingleValue(key: String) = properties.getProperty(key)
-
 
 }

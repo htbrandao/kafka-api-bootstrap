@@ -1,11 +1,10 @@
 import org.slf4j.LoggerFactory
 
-class BehaviorLoader(config: LoadEnviroment, behaviorList: Array[(String, Int)],
+class BehaviorLoader(config: LoadConfigEnviroment, behaviorList: Array[(String, Int)],
                      groupId: String, appId: String) extends Thread {
 
     val log = LoggerFactory.getLogger(this.getClass)
     log.info(s"ACK @ ${this.getClass} ")
-
 
     def load()= {
 
@@ -63,9 +62,6 @@ class BehaviorLoader(config: LoadEnviroment, behaviorList: Array[(String, Int)],
         bhvArray
     }
 
-
-    // main
     override def run(): Unit = load()
-
 
 }

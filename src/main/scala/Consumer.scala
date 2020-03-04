@@ -12,24 +12,22 @@ class Consumer(myProp: Properties, myTopic: String, pollTimeout: Int) extends Th
     val consumer = new KafkaConsumer[String, String](myProp)
     consumer.subscribe(util.Collections.singletonList(myTopic))
 
-
     def consume() = {
 
         val recPoll = consumer.poll(pollTimeout)
 
         val msgs = recPoll.asScala.map{ msg =>
-            val msgToMap = Map("topic" -> msg.topic(), "partition" -> msg.partition(), "offset" -> msg.offset(),
-                                "key" -> msg.key(), "value" -> msg.value(),
-                                "timestamp" -> msg.timestamp() )
-            // TODO: print
-            println(s"*** READING @ ${msg.topic()} : $msgToMap")
+            val msgToMap = Map("topic" -> msg.topic(),
+                                "partition" -> msg.partition(),
+                                "offset" -> msg.offset(),
+                                "key" -> msg.key(),
+                                "value" -> msg.value(),
+                                "timestamp" -> msg.timestamp())
             msgToMap
             }
         msgs
     }
 
-
-    // main
     override def run(): Unit = while (true) consume()
 
 }

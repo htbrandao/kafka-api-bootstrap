@@ -12,7 +12,7 @@ class Streamer(myProp: Properties, mytopicOrg: String, mytopicDest: String) exte
 
     val topology = builder.build()
 
-    // TODO: Countdown Latch?
+
     // Implement parser
     log.info(s"STREAMER TOPOLOGY: ${topology.describe()}")
 
@@ -28,12 +28,6 @@ class Streamer(myProp: Properties, mytopicOrg: String, mytopicDest: String) exte
         topology
     }
 
-
-
-    // main
-    override def run(): Unit = {
-        open()
-        // TODO: close()
-    }
+    override def run(): Unit = open()
 
 }

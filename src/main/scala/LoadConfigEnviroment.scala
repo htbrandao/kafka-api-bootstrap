@@ -1,4 +1,4 @@
-class LoadEnviroment {
+class LoadConfigEnviroment {
 
     def getCompoundValue(key: String) = {System.getenv(key).split(";")}
 

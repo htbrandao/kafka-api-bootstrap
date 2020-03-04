@@ -5,12 +5,6 @@ import org.slf4j.LoggerFactory
 
 class Profile {
 
-    // TODO: Customize profile for behaviors:
-    //  ack for real time producer: "acks" -> all
-    //  consumers read only commited
-    //  producer as transaction
-    //  check classes docs again
-
     def setDefault(myAppId: String, myGroupId: String, serverList: Array[String]) = {
 
         val log = LoggerFactory.getLogger(this.getClass)
@@ -28,8 +22,6 @@ class Profile {
 
         prop.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer")
         prop.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
-
-        // TODO: Tunning (e.g.: max.poll.records etc)
 
         prop
     }
@@ -50,26 +42,5 @@ class Profile {
 
         prop
     }
-
-    def setOauth(appId: String, groupId: String, serverList: Array[String]) = {
-
-        val prop = new Properties()
-        prop.put("application.id", appId)
-        prop.put("group.id", groupId)
-        serverList.map(server => prop.put("bootstrap.servers", server))
-        prop.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer")
-        prop.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
-        prop.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer")
-        prop.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
-        // Oauth
-        // prop.put("sasl.jaas.config", "org.apache.kafka.common.security.oauthbearer.OAuthBearerLoginModule required ;")
-        // prop.put("security.protocol", "SASL_PLAINTEXT")
-        // prop.put("sasl.mechanism", "OAUTHBEARER")
-        // prop.put("sasl.client.callback.handler.class", "lib.proper.security.oauthbearer.OauthAuthenticateLoginCallbackHandler")
-        // prop.put("sasl.login.callback.handler.class", "lib.proper.security.oauthbearer.OauthAuthenticateLoginCallbackHandler")
-
-        prop
-    }
-
 
 }
