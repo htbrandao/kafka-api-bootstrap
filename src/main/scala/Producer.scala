@@ -10,11 +10,17 @@ class Producer(myProp: Properties, myTopic: String, sleepTime: Int) extends Thre
 
     val producer = new KafkaProducer[String, String](myProp)
 
-    def produce(recKey: String, recVal: String) = producer.send(new ProducerRecord(myTopic, recKey, recVal) )
+    def produce(recKey: String, recVal: String) = producer.send(new ProducerRecord(myTopic, recKey, recVal))
+String
+
+    // TODO: Impelemt your own message producer
+    val msg = new Message()
 
     override def run(): Unit = {
         while (true) {
-            produce("__THIS_IS_KEY__", s"__VAL_IS__${LocalDateTime.now()}__")
+            // TODO: Plug it here
+            val keyVal = msg.dummy()
+            produce(keyVal.item._1, keyVal.item._2)
             Thread.sleep(sleepTime)
         }
         producer.close()

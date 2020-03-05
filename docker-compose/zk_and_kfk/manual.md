@@ -25,4 +25,3 @@
 # create a console producer for topic1 inside container
 
     kafka-console-producer --broker-list kafka1:9092 --topic topic1
-

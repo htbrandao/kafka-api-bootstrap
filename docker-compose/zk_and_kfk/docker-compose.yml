@@ -1,4 +1,4 @@
-version: '2.1'
+version: '3.4'
 
 services:
 
@@ -14,6 +14,7 @@ services:
     volumes:
       - /tmp/zk-single-kafka-single/zoo1/data:/data
       - /tmp/zk-single-kafka-single/zoo1/datalog:/datalog
+    # network_mode: host
 
   kafka1:
     image: confluentinc/cp-kafka:5.4.0
@@ -32,3 +33,4 @@ services:
       - /tmp/zk-single-kafka-single/kafka1/data:/var/lib/kafka/data
     depends_on:
       - zoo1
+    # network_mode: host
