@@ -11,14 +11,20 @@ class Producer(myProp: Properties, topic: String, sleepTime: Int) extends Thread
 
     def produce(recKey: String, recVal: String) = producer.send(new ProducerRecord(topic, recKey, recVal))
 
-    // TODO: Implement your own message producer handler
+    /*
+      TODO: Implement your own message producer handler
+    */
     val msg = new Writer()
 
     override def run(): Unit = {
         while (true) {
-            // TODO: Plug it here
+            /*
+                TODO: Plug it here
+            */
             val keyVal = msg.dummy()
             produce(keyVal._1, keyVal._2)
+            //
+            //
             Thread.sleep(sleepTime)
         }
         producer.close()
