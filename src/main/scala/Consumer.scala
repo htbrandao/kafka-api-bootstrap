@@ -28,7 +28,6 @@ class Consumer(myProp: Properties, myTopic: String, pollTimeout: Int) extends Th
                                 "key" -> msg.key(),
                                 "value" -> msg.value(),
                                 "timestamp" -> msg.timestamp())
-
             /*
               TODO: Plug it here
             */
