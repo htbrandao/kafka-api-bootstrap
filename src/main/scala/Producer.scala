@@ -11,7 +11,6 @@ class Producer(myProp: Properties, topic: String, sleepTime: Int) extends Thread
     val producer = new KafkaProducer[String, String](myProp)
 
     def produce(recKey: String, recVal: String) = producer.send(new ProducerRecord(topic, recKey, recVal))
-String
 
     // TODO: Impelemt your own message producer
     val msg = new Message()
@@ -20,7 +19,7 @@ String
         while (true) {
             // TODO: Plug it here
             val keyVal = msg.dummy()
-            produce(keyVal.item._1, keyVal.item._2)
+            produce(keyVal._1, keyVal._2)
             Thread.sleep(sleepTime)
         }
         producer.close()
