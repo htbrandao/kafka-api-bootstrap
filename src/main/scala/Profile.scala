@@ -5,15 +5,15 @@ import org.slf4j.LoggerFactory
 
 class Profile {
 
-    def setDefault(myAppId: String, myGroupId: String, serverList: Array[String]) = {
+    def setDefault(appId: String, groupId: String, serverList: Array[String]) = {
 
         val log = LoggerFactory.getLogger(this.getClass)
         log.info(s"ACK @ ${this.getClass} ")
 
         val prop = new Properties()
 
-        prop.put("application.id", myAppId)
-        prop.put("group.id", myGroupId)
+        prop.put("application.id", appId)
+        prop.put("group.id", groupId)
 
         serverList.map(server => prop.put("bootstrap.servers", server))
         

@@ -19,7 +19,6 @@ object Main {
 
         val app = new BehaviorLoader(config, behaviorList, groupId, appId)
         app.start()
-
     }
 
 }
