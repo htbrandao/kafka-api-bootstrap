@@ -5,5 +5,3 @@ class LoadConfigEnviroment {
     def getSingleValue(key: String) = {System.getenv(key)}
 
 }
-
-
