@@ -14,7 +14,7 @@ idea {
 
 repositories {
     jcenter()
-//    flatDir { dirs 'libs' }
+    // flatDir { dirs 'libs' }
 }
 
 dependencies {
@@ -28,8 +28,6 @@ dependencies {
     compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
-    // https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver
-    compile group: 'org.mongodb', name: 'mongo-java-driver', version: '3.9.1'
 
     // compile files ('libs/MY-LIB-NAME.jar')           // for a single lib
     // fileTree(include: ['*.jar'], dir: 'libs')        // for multiple libs
