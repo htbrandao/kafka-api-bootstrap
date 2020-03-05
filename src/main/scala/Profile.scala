@@ -16,7 +16,7 @@ class Profile {
         prop.put("group.id", groupId)
 
         serverList.map(server => prop.put("bootstrap.servers", server))
-        
+
         prop.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer")
         prop.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
 
@@ -32,6 +32,7 @@ class Profile {
         log.info(s"ACK @ ${this.getClass} ")
 
         val prop = new Properties()
+
         prop.put("application.id", appId)
         prop.put("group.id", groupId)
 
