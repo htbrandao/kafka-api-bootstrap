@@ -2,22 +2,21 @@ version: '2.1'
 
 services:
 
-  api_stream:
-    image: kafka_client_bootstrap:1.0.0
-    container_name: api_stream
-    environment:
-      - bhvList=stream
-      - groupId=gId_=api_stream
-      - appId=api_stream
-      # Topic 1 -> 2
-      - bhv0_topic_IN=topic1
-      - bhv0_topic_OUT=topic2
-      - bhv0_bootstrapServers=kafka1:9902,kafka1:9902,kafka1:9902
-      # Topic 2 -> 3
-      - bhv1_topic_IN=topic2
-      - bhv1_topic_OUT=topic3
-      - bhv1_bootstrapServers=kafka1:9902,kafka1:9902,kafka1:9902
-
+  # api_stream:
+  #   image: kafka_client_bootstrap:1.0.0
+  #   container_name: api_stream
+  #   environment:
+  #     - bhvList=stream
+  #     - groupId=gId_=api_stream
+  #     - appId=api_stream
+  #     # Topic 1 -> 2
+  #     - bhv0_topic_IN=topic1
+  #     - bhv0_topic_OUT=topic2
+  #     - bhv0_bootstrapServers=kafka1:9902;kafka1:9902;kafka1:9902
+  #     # Topic 2 -> 3
+  #     - bhv1_topic_IN=topic2
+  #     - bhv1_topic_OUT=topic3
+  #     - bhv1_bootstrapServers=kafka1:9902;kafka1:9902;kafka1:9902
 
   api_producer:
     image: kafka_client_bootstrap:1.0.0
@@ -27,22 +26,22 @@ services:
       - groupId=gId_=api_producer
       - appId=api_producer
       - bhv0_topic=topic1
-      - bhv0_bootstrapServers=kafka1:9902
+      - bhv0_bootstrapServers=kafka1:9902;kafka1:9902;kafka1:9902
       - bhv0_sleep=200
 
-  api_consumer:
-    image: kafka_client_bootstrap:1.0.0
-    container_name: api_consumer
-    environment:
-      - bhvList=consumer;consumer;consumer
-      - groupId=api_consumer
-      - appId=api_consumer
-      # Thread 0
-      - bhv0_topic=topic1
-      - bhv0_bootstrapServers=kafka1:9902,kafka1:9902,kafka1:9902
-      # Thread 1
-      - bhv1_topic=topic2
-      - bhv1_bootstrapServers=kafka1:9902,kafka1:9902,kafka1:9902
-      # Thread 2
-      - bhv2_topic=topic3
-      - bhv2_bootstrapServers=kafka1:9902,kafka1:9902,kafka1:9902
+  # api_consumer:
+  #   image: kafka_client_bootstrap:1.0.0
+  #   container_name: api_consumer
+  #   environment:
+  #     - bhvList=consumer;consumer;consumer
+  #     - groupId=api_consumer
+  #     - appId=api_consumer
+  #     # Thread 0
+  #     - bhv0_topic=topic1
+  #     - bhv0_bootstrapServers=kafka1:9902;kafka1:9902;kafka1:9902
+  #     # Thread 1
+  #     - bhv1_topic=topic2
+  #     - bhv1_bootstrapServers=kafka1:9902;kafka1:9902;kafka1:9902
+  #     # Thread 2
+  #     - bhv2_topic=topic3
+  #     - bhv2_bootstrapServers=kafka1:9902;kafka1:9902;kafka1:9902

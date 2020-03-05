@@ -16,7 +16,7 @@ class Profile {
         prop.put("group.id", myGroupId)
 
         serverList.map(server => prop.put("bootstrap.servers", server))
-        // TODO: "WARN org.apache.kafka.clients.consumer.ConsumerConfig - The configuration 'value.serializer' was supplied but isn't a known config"
+        
         prop.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer")
         prop.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
 

@@ -55,7 +55,7 @@ class BehaviorLoader(config: LoadConfigEnviroment, behaviorList: Array[(String, 
 
                 case _ =>
                     val log = LoggerFactory.getLogger(this.getClass)
-                    log.info(s"\n ERROR: Behavior not found: $index-$bhv.")
+                    log.info(s"\nERROR: Behavior not found: $index-$bhv.")
                     s"$index, $bhv"
                 }
         }
