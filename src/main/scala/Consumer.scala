@@ -12,6 +12,9 @@ class Consumer(myProp: Properties, myTopic: String, pollTimeout: Int) extends Th
     val consumer = new KafkaConsumer[String, String](myProp)
     consumer.subscribe(util.Collections.singletonList(myTopic))
 
+    // TODO: Implement your own message consumer handler
+    val forward = new Forward()
+
     def consume() = {
 
         val recPoll = consumer.poll(pollTimeout)
@@ -23,7 +26,9 @@ class Consumer(myProp: Properties, myTopic: String, pollTimeout: Int) extends Th
                                 "key" -> msg.key(),
                                 "value" -> msg.value(),
                                 "timestamp" -> msg.timestamp())
-            print(msgToMap)
+
+            // TODO: Plug it here
+            forward.echo(msgToMap)
             msgToMap
             }
         msgs

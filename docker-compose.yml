@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3'
 
 services:
 
@@ -17,7 +17,7 @@ services:
     volumes:
       - /tmp/zk-single-kafka-single/zoo1/data:/data
       - /tmp/zk-single-kafka-single/zoo1/datalog:/datalog
-    network_mode: host
+    # network_mode: host
 
   kafka1:
     image: confluentinc/cp-kafka:5.4.0
@@ -36,7 +36,7 @@ services:
       - /tmp/zk-single-kafka-single/kafka1/data:/var/lib/kafka/data
     depends_on:
       - zoo1
-    network_mode: host
+    # network_mode: host
 
 # =====================================================================
 # APIs
@@ -85,6 +85,6 @@ services:
       - appId=api_producer
       # Thread 0
       - bhv0_topic=topic1
-      - bhv0_bootstrapServers=localhost:9092
+      - bhv0_bootstrapServers=kafka1:9092
       - bhv0_sleep=200
-    network_mode: host
+  #   network_mode: host

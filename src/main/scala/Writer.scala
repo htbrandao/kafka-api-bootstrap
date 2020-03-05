@@ -1,6 +1,6 @@
 import java.time.LocalDateTime
 
-class Message {
+class Writer {
 
     def dummy() = ("__THIS_IS_A_KEY__", s"__VAL_IS__${LocalDateTime.now()}__")
 
