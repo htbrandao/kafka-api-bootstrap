@@ -1,4 +1,3 @@
-import java.time.LocalDateTime
 import java.util.Properties
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 import org.slf4j.LoggerFactory
