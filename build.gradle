@@ -14,20 +14,20 @@ idea {
 
 repositories {
     jcenter()
-    // flatDir { dirs 'libs' }                          // whenever you want to include local JARS
+    // flatDir { dirs 'libs' }                          // whenever you want to include local JARs
 }
 
 dependencies {
     // Use Scala 2.12 in our library project
     compile 'org.scala-lang:scala-library:2.12.6'
-    // https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients
-    compile group: 'org.apache.kafka', name: 'kafka-clients', version: '2.0.0'
-    // https://mvnrepository.com/artifact/org.apache.kafka/kafka-streams
-    compile group: 'org.apache.kafka', name: 'kafka-streams', version: '2.0.0'
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
     compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    // https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients
+    compile group: 'org.apache.kafka', name: 'kafka-clients', version: '2.0.0'
+    // https://mvnrepository.com/artifact/org.apache.kafka/kafka-streams
+    compile group: 'org.apache.kafka', name: 'kafka-streams', version: '2.0.0'
 
     // compile files ('libs/MY-LIB-NAME.jar')           // for a single lib
     // fileTree(include: ['*.jar'], dir: 'libs')        // for multiple libs
