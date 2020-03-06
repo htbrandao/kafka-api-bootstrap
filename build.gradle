@@ -14,7 +14,7 @@ idea {
 
 repositories {
     jcenter()
-    // flatDir { dirs 'libs' }
+    // flatDir { dirs 'libs' }                          // whenever you want to include local JARS
 }
 
 dependencies {
